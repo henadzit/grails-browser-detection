@@ -23,25 +23,6 @@ class BrowserTagLib {
 
 	private static def CHOICE_STACK_NAME = "${this.name}_choiceStack"
 
-	private enum HierarchyLevelType {
-		ChoiceTag,
-		ConditionTag
-	}
-
-	/**
-	 * Describes a hierarchy level as the choice tag and
-	 * a condition tag
-	 */
-	private class HierarchyLevelHolder {
-		HierarchyLevelType levelType
-
-		/**
-		 * It makes sense only for the choice tag
-		 */
-		Closure otherwise
-		boolean successfulCondition
-	}
-
     def userAgentIdentService
 
 	def isMobile = { attrs, body ->
@@ -315,4 +296,23 @@ class BrowserTagLib {
 
 		stack.peek().otherwise = body
 	}
+}
+
+enum HierarchyLevelType {
+	ChoiceTag,
+	ConditionTag
+}
+
+/**
+ * Describes a hierarchy level as the choice tag and
+ * a condition tag
+ */
+class HierarchyLevelHolder {
+	HierarchyLevelType levelType
+
+	/**
+	 * It makes sense only for the choice tag
+	 */
+	Closure otherwise
+	boolean successfulCondition
 }
